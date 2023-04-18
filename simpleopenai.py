@@ -1,8 +1,8 @@
 import openai
 
 class SimplePrompt:
-    def __init__(self, system):
-        self.system = {'role':'system','content':system}
+    def __init__(self, system_role):
+        self.system_role = {'role':'system','content':system_role}
         self.message_list = []
 
     def clear(self):
@@ -10,14 +10,14 @@ class SimplePrompt:
 
     def set_prompt(self, role, msg):
         if role == 'system':
-            self.system['content']=msg
+            self.system_role['content']=msg
             return
         self.clear()
         self.message_list.append({'role':role,'content':msg})
 
     def add_prompt(self, role, msg):
         if role == 'system':
-            self.system['content']=msg
+            self.system_role['content']=msg
         self.message_list.append({'role':role,'content':msg})
 
     def add_prompts(self, prompt_array):
@@ -26,7 +26,7 @@ class SimplePrompt:
             self.add_prompt(prompt[0], prompt[1])
     
     def get_prompt_list(self):
-        return [self.system]+self.message_list
+        return [self.system_role]+self.message_list
 
 class SimpleOpenAI:
     MODEL = 'gpt-3.5-turbo'
